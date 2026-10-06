@@ -1,0 +1,65 @@
+services:
+
+  # =========================================================
+  # FASTAPI BACKEND
+  # =========================================================
+
+  - type: web
+
+    name: manas-ai-api
+
+    runtime: python
+
+    plan: free
+
+    region: singapore
+
+    rootDir: backend
+
+    buildCommand: pip install -r requirements.txt
+
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+
+    healthCheckPath: /health
+
+    autoDeploy: true
+
+    envVars:
+
+      - key: PYTHON_VERSION
+        value: 3.12.10
+
+      - key: GROQ_API_KEY
+        sync: false
+
+      - key: DATABASE_URL
+        sync: false
+
+      - key: ADMIN_EMAIL
+        sync: false
+
+      - key: ADMIN_PASSWORD_HASH
+        sync: false
+
+      - key: JWT_SECRET
+        sync: false
+
+      - key: FRONTEND_URL
+        sync: false
+
+
+  # =========================================================
+  # STATIC FRONTEND
+  # =========================================================
+
+  - type: web
+
+    name: manas-ai-portfolio
+
+    runtime: static
+
+    staticPublishPath: frontend
+
+    buildCommand: echo "Static portfolio - no build required"
+
+    autoDeploy: true

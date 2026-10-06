@@ -1,0 +1,8240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+Manas.AI | AI Engineer & Software Developer
+</title>
+
+<meta
+name="description"
+content="Interactive AI-powered portfolio of Manas Pandey — Generative AI, RAG, FastAPI, Python, Computer Vision and Full Stack Engineering."
+>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+rel="stylesheet"
+>
+
+
+<style>
+
+/* =========================================================
+   THEME
+========================================================= */
+
+:root{
+
+    --bg:#04060b;
+    --bg2:#070b14;
+
+    --panel:
+        rgba(12,17,29,.74);
+
+    --panel-strong:
+        rgba(13,18,31,.94);
+
+    --line:
+        rgba(255,255,255,.09);
+
+    --line-strong:
+        rgba(255,255,255,.16);
+
+    --text:#f7f8fc;
+
+    --muted:#929db2;
+
+    --muted2:#68748a;
+
+    --purple:#8b6cff;
+
+    --blue:#4acaff;
+
+    --cyan:#63e5ff;
+
+    --green:#52e6a8;
+
+    --danger:#ff6b82;
+
+    --radius:22px;
+
+}
+
+
+*{
+
+    box-sizing:border-box;
+
+    margin:0;
+
+    padding:0;
+
+}
+
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+
+body{
+
+    min-height:100vh;
+
+    font-family:
+        Inter,
+        sans-serif;
+
+    background:
+        var(--bg);
+
+    color:
+        var(--text);
+
+    overflow-x:hidden;
+
+}
+
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:-10;
+
+    pointer-events:none;
+
+    background:
+
+        radial-gradient(
+            circle at 10% 15%,
+            rgba(132,91,255,.13),
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at 88% 18%,
+            rgba(59,199,255,.08),
+            transparent 27%
+        ),
+
+        radial-gradient(
+            circle at 55% 85%,
+            rgba(78,229,167,.045),
+            transparent 30%
+        );
+
+}
+
+
+body::after{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:-9;
+
+    pointer-events:none;
+
+    background-image:
+
+        linear-gradient(
+            rgba(255,255,255,.018) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.018) 1px,
+            transparent 1px
+        );
+
+    background-size:
+        56px 56px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            rgba(0,0,0,.9),
+            rgba(0,0,0,.35)
+        );
+
+}
+
+
+a{
+
+    color:inherit;
+
+    text-decoration:none;
+
+}
+
+
+button,
+input,
+textarea{
+
+    font:inherit;
+
+}
+
+
+button{
+
+    cursor:pointer;
+
+}
+
+
+::selection{
+
+    background:
+        rgba(139,108,255,.35);
+
+}
+
+
+/* =========================================================
+   BASE
+========================================================= */
+
+.container{
+
+    width:
+        min(1180px,91%);
+
+    margin:auto;
+
+}
+
+
+.section{
+
+    position:relative;
+
+    padding:
+        118px 0;
+
+}
+
+
+.gradient-text{
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #a58dff,
+            #5bd8ff,
+            #69efbd
+        );
+
+    -webkit-background-clip:text;
+
+    background-clip:text;
+
+    color:transparent;
+
+}
+
+
+.section-kicker{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-bottom:17px;
+
+    font:
+        10px
+        "JetBrains Mono",
+        monospace;
+
+    color:
+        var(--blue);
+
+    letter-spacing:.18em;
+
+}
+
+
+.section-kicker::before{
+
+    content:"";
+
+    width:25px;
+
+    height:1px;
+
+    background:
+        var(--blue);
+
+}
+
+
+.section-title{
+
+    max-width:880px;
+
+    font-size:
+        clamp(38px,5vw,65px);
+
+    line-height:1.03;
+
+    letter-spacing:
+        -3px;
+
+}
+
+
+.section-subtitle{
+
+    max-width:720px;
+
+    margin-top:19px;
+
+    color:
+        var(--muted);
+
+    font-size:15px;
+
+    line-height:1.85;
+
+}
+
+
+.mono{
+
+    font-family:
+        "JetBrains Mono",
+        monospace;
+
+}
+
+
+/* =========================================================
+   BACKGROUND CANVAS
+========================================================= */
+
+#networkCanvas{
+
+    position:fixed;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    z-index:-7;
+
+    opacity:.6;
+
+    pointer-events:none;
+
+}
+
+
+#cursorGlow{
+
+    position:fixed;
+
+    width:650px;
+
+    height:650px;
+
+    left:50%;
+
+    top:50%;
+
+    z-index:-5;
+
+    pointer-events:none;
+
+    border-radius:50%;
+
+    transform:
+        translate(-50%,-50%);
+
+    background:
+
+        radial-gradient(
+            circle,
+            rgba(111,83,255,.09),
+            rgba(65,206,255,.035) 32%,
+            transparent 68%
+        );
+
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.nav-shell{
+
+    position:fixed;
+
+    top:16px;
+
+    left:50%;
+
+    z-index:1000;
+
+    transform:
+        translateX(-50%);
+
+    width:
+        min(1160px,93%);
+
+}
+
+
+.navbar{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+
+    padding:
+        11px 14px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:18px;
+
+    background:
+        rgba(5,8,16,.72);
+
+    backdrop-filter:
+        blur(24px);
+
+    box-shadow:
+        inset 0 1px 0
+        rgba(255,255,255,.025);
+
+}
+
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-size:14px;
+
+    font-weight:800;
+
+}
+
+
+.brand-mark{
+
+    position:relative;
+
+    display:grid;
+
+    place-items:center;
+
+    width:38px;
+
+    height:38px;
+
+    overflow:hidden;
+
+    border-radius:11px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #826cff,
+            #48cfff
+        );
+
+    font-weight:900;
+
+}
+
+
+.brand-mark::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:55px;
+
+    height:14px;
+
+    background:
+        rgba(255,255,255,.24);
+
+    transform:
+        rotate(-40deg)
+        translateY(-20px);
+
+    animation:
+        logoShine 6s
+        linear infinite;
+
+}
+
+
+@keyframes logoShine{
+
+    0%{
+
+        transform:
+            rotate(-40deg)
+            translateY(-45px);
+
+    }
+
+    28%,
+    100%{
+
+        transform:
+            rotate(-40deg)
+            translateY(55px);
+
+    }
+
+}
+
+
+.navlinks{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:23px;
+
+}
+
+
+.navlinks a{
+
+    color:
+        var(--muted);
+
+    font-size:12px;
+
+    transition:.2s;
+
+}
+
+
+.navlinks a:hover{
+
+    color:white;
+
+}
+
+
+.nav-cta{
+
+    padding:
+        9px 13px;
+
+    border:
+        1px solid
+        rgba(139,108,255,.30);
+
+    border-radius:9px;
+
+    background:
+        rgba(139,108,255,.10);
+
+    color:#dcd5ff!important;
+
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    min-height:44px;
+
+    padding:
+        11px 16px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:11px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    color:white;
+
+    font-size:12px;
+
+    font-weight:600;
+
+    transition:
+        transform .2s,
+        border-color .2s,
+        background .2s;
+
+}
+
+
+.btn:hover{
+
+    transform:
+        translateY(-2px);
+
+    border-color:
+        var(--line-strong);
+
+    background:
+        rgba(255,255,255,.065);
+
+}
+
+
+.btn-primary{
+
+    border-color:
+        transparent;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #8165ff,
+            #5b78ff
+        );
+
+    box-shadow:
+        0 15px 40px
+        rgba(89,87,255,.16);
+
+}
+
+
+.btn-primary:hover{
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #9178ff,
+            #6985ff
+        );
+
+}
+
+
+.btn-green{
+
+    border-color:
+        rgba(82,230,168,.27);
+
+    background:
+        rgba(82,230,168,.07);
+
+    color:
+        #caffea;
+
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+
+    position:relative;
+
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    padding:
+        130px 0 70px;
+
+}
+
+
+.hero-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        minmax(0,1.08fr)
+        minmax(360px,.92fr);
+
+    gap:65px;
+
+    align-items:center;
+
+}
+
+
+.hero-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:9px;
+
+    margin-bottom:23px;
+
+    padding:
+        8px 12px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:100px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    color:
+        #c4cddd;
+
+    font:
+        10px
+        "JetBrains Mono",
+        monospace;
+
+    letter-spacing:.05em;
+
+}
+
+
+.online-dot{
+
+    width:7px;
+
+    height:7px;
+
+    border-radius:50%;
+
+    background:
+        var(--green);
+
+    box-shadow:
+        0 0 14px
+        var(--green);
+
+    animation:
+        pulseDot 2s
+        ease-in-out infinite;
+
+}
+
+
+@keyframes pulseDot{
+
+    50%{
+
+        opacity:.45;
+
+        transform:
+            scale(.75);
+
+    }
+
+}
+
+
+.hero-title{
+
+    max-width:720px;
+
+    font-size:
+        clamp(55px,7.2vw,99px);
+
+    font-weight:800;
+
+    line-height:.91;
+
+    letter-spacing:
+        -5px;
+
+}
+
+
+.hero-title .line2{
+
+    display:block;
+
+    margin-top:8px;
+
+}
+
+
+.hero-description{
+
+    max-width:680px;
+
+    margin-top:27px;
+
+    color:
+        var(--muted);
+
+    font-size:
+        16px;
+
+    line-height:1.85;
+
+}
+
+
+.hero-actions{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:9px;
+
+    margin-top:30px;
+
+}
+
+
+.hero-meta{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:28px;
+
+    margin-top:39px;
+
+}
+
+
+.hero-meta-item{
+
+    position:relative;
+
+    padding-left:14px;
+
+}
+
+
+.hero-meta-item::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:3px;
+
+    bottom:3px;
+
+    left:0;
+
+    width:2px;
+
+    border-radius:5px;
+
+    background:
+
+        linear-gradient(
+            var(--purple),
+            var(--blue)
+        );
+
+}
+
+
+.hero-meta strong{
+
+    display:block;
+
+    font-size:18px;
+
+}
+
+
+.hero-meta span{
+
+    display:block;
+
+    margin-top:4px;
+
+    color:
+        var(--muted2);
+
+    font-size:10px;
+
+}
+
+
+/* =========================================================
+   HERO 3D SCENE
+========================================================= */
+
+.ai-scene{
+
+    position:relative;
+
+    height:530px;
+
+    display:grid;
+
+    place-items:center;
+
+    perspective:
+        1200px;
+
+}
+
+
+.ai-core-wrap{
+
+    position:relative;
+
+    width:330px;
+
+    height:330px;
+
+    transform-style:
+        preserve-3d;
+
+    transition:
+        transform .13s
+        ease-out;
+
+}
+
+
+.core-glow{
+
+    position:absolute;
+
+    inset:45px;
+
+    border-radius:50%;
+
+    background:
+        rgba(105,94,255,.11);
+
+    filter:
+        blur(34px);
+
+}
+
+
+.core-sphere{
+
+    position:absolute;
+
+    inset:64px;
+
+    border-radius:50%;
+
+    background:
+
+        radial-gradient(
+            circle at 31% 25%,
+            rgba(255,255,255,.98),
+            rgba(101,222,255,.77) 7%,
+            rgba(98,109,255,.48) 25%,
+            rgba(97,61,217,.27) 48%,
+            rgba(9,13,30,.10) 73%
+        );
+
+    box-shadow:
+
+        inset -32px -35px 70px
+        rgba(0,0,0,.55),
+
+        0 0 35px
+        rgba(87,194,255,.32),
+
+        0 0 90px
+        rgba(116,87,255,.20),
+
+        0 0 170px
+        rgba(82,194,255,.07);
+
+    animation:
+        sphereBreath 5s
+        ease-in-out infinite;
+
+}
+
+
+@keyframes sphereBreath{
+
+    50%{
+
+        transform:
+            scale(1.035);
+
+        filter:
+            brightness(1.1);
+
+    }
+
+}
+
+
+.orbit{
+
+    position:absolute;
+
+    inset:15px;
+
+    border:
+        1px solid
+        rgba(85,202,255,.21);
+
+    border-radius:50%;
+
+    transform-style:
+        preserve-3d;
+
+}
+
+
+.orbit-a{
+
+    transform:
+        rotateX(70deg);
+
+    animation:
+        orbitA 11s
+        linear infinite;
+
+}
+
+
+.orbit-b{
+
+    inset:27px;
+
+    transform:
+        rotateY(69deg)
+        rotateZ(26deg);
+
+    animation:
+        orbitB 14s
+        linear infinite;
+
+}
+
+
+.orbit-c{
+
+    inset:44px;
+
+    transform:
+        rotateX(46deg)
+        rotateY(51deg);
+
+    animation:
+        orbitC 17s
+        linear infinite;
+
+}
+
+
+@keyframes orbitA{
+
+    to{
+
+        transform:
+            rotateX(70deg)
+            rotateZ(360deg);
+
+    }
+
+}
+
+
+@keyframes orbitB{
+
+    to{
+
+        transform:
+            rotateY(69deg)
+            rotateZ(386deg);
+
+    }
+
+}
+
+
+@keyframes orbitC{
+
+    to{
+
+        transform:
+            rotateX(406deg)
+            rotateY(51deg);
+
+    }
+
+}
+
+
+.orbit-particle{
+
+    position:absolute;
+
+    width:11px;
+
+    height:11px;
+
+    border-radius:50%;
+
+    background:
+        var(--blue);
+
+    box-shadow:
+        0 0 19px
+        var(--blue);
+
+}
+
+
+.orbit-a .orbit-particle{
+
+    top:-5px;
+
+    left:50%;
+
+}
+
+
+.orbit-b .orbit-particle{
+
+    right:15px;
+
+    bottom:36px;
+
+    background:
+        var(--green);
+
+    box-shadow:
+        0 0 19px
+        var(--green);
+
+}
+
+
+.orbit-c .orbit-particle{
+
+    left:12px;
+
+    top:52px;
+
+    background:
+        var(--purple);
+
+    box-shadow:
+        0 0 19px
+        var(--purple);
+
+}
+
+
+.tech-float{
+
+    position:absolute;
+
+    z-index:5;
+
+    padding:
+        9px 12px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:10px;
+
+    background:
+        rgba(7,10,20,.78);
+
+    backdrop-filter:
+        blur(14px);
+
+    font:
+        10px
+        "JetBrains Mono",
+        monospace;
+
+    color:#d7dfed;
+
+    box-shadow:
+        0 12px 45px
+        rgba(0,0,0,.22);
+
+    animation:
+        floatTech 4s
+        ease-in-out infinite;
+
+}
+
+
+.tech-float::before{
+
+    content:"";
+
+    display:inline-block;
+
+    width:5px;
+
+    height:5px;
+
+    margin-right:7px;
+
+    border-radius:50%;
+
+    background:
+        var(--blue);
+
+}
+
+
+.tech-1{
+
+    top:58px;
+
+    left:-1px;
+
+}
+
+
+.tech-2{
+
+    top:114px;
+
+    right:-8px;
+
+    animation-delay:-1s;
+
+}
+
+
+.tech-3{
+
+    bottom:96px;
+
+    left:7px;
+
+    animation-delay:-2s;
+
+}
+
+
+.tech-4{
+
+    right:10px;
+
+    bottom:64px;
+
+    animation-delay:-3s;
+
+}
+
+
+@keyframes floatTech{
+
+    50%{
+
+        transform:
+            translateY(-10px);
+
+    }
+
+}
+
+
+.core-center-label{
+
+    position:absolute;
+
+    inset:0;
+
+    z-index:8;
+
+    display:grid;
+
+    place-items:center;
+
+    pointer-events:none;
+
+}
+
+
+.core-center-label div{
+
+    margin-top:3px;
+
+    text-align:center;
+
+    font:
+        8px
+        "JetBrains Mono",
+        monospace;
+
+    letter-spacing:.16em;
+
+    color:
+        rgba(255,255,255,.76);
+
+}
+
+
+/* =========================================================
+   RECRUITER STRIP
+========================================================= */
+
+.recruiter-strip{
+
+    display:grid;
+
+    grid-template-columns:
+        1.4fr
+        1fr;
+
+    gap:17px;
+
+    margin-top:-20px;
+
+}
+
+
+.recruiter-panel{
+
+    position:relative;
+
+    overflow:hidden;
+
+    padding:30px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:
+        var(--radius);
+
+    background:
+        var(--panel);
+
+    backdrop-filter:
+        blur(18px);
+
+}
+
+
+.recruiter-panel::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:250px;
+
+    height:250px;
+
+    right:-100px;
+
+    top:-150px;
+
+    border-radius:50%;
+
+    background:
+        rgba(119,89,255,.08);
+
+    filter:
+        blur(5px);
+
+}
+
+
+.recruiter-panel h3{
+
+    position:relative;
+
+    z-index:1;
+
+    font-size:23px;
+
+    margin-bottom:12px;
+
+}
+
+
+.recruiter-panel p{
+
+    position:relative;
+
+    z-index:1;
+
+    color:
+        var(--muted);
+
+    font-size:13px;
+
+    line-height:1.8;
+
+}
+
+
+.recruiter-points{
+
+    position:relative;
+
+    z-index:1;
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:8px;
+
+    margin-top:20px;
+
+}
+
+
+.recruiter-point{
+
+    padding:11px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.06);
+
+    border-radius:10px;
+
+    background:
+        rgba(255,255,255,.022);
+
+    color:#c4cddd;
+
+    font-size:11px;
+
+}
+
+
+/* =========================================================
+   EXPERIENCE
+========================================================= */
+
+.timeline{
+
+    position:relative;
+
+    margin-top:48px;
+
+}
+
+
+.timeline::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:16px;
+
+    top:10px;
+
+    bottom:10px;
+
+    width:1px;
+
+    background:
+
+        linear-gradient(
+            to bottom,
+            var(--purple),
+            rgba(74,202,255,.45),
+            transparent
+        );
+
+}
+
+
+.exp-row{
+
+    position:relative;
+
+    display:grid;
+
+    grid-template-columns:
+        190px 1fr;
+
+    gap:30px;
+
+    margin-bottom:17px;
+
+    padding-left:52px;
+
+}
+
+
+.exp-dot{
+
+    position:absolute;
+
+    left:10px;
+
+    top:27px;
+
+    width:13px;
+
+    height:13px;
+
+    border:
+        3px solid
+        #070a12;
+
+    border-radius:50%;
+
+    background:
+        var(--blue);
+
+    box-shadow:
+        0 0 0 1px
+        rgba(75,208,255,.4),
+        0 0 16px
+        rgba(75,208,255,.38);
+
+}
+
+
+.exp-period{
+
+    padding-top:24px;
+
+    font:
+        10px
+        "JetBrains Mono",
+        monospace;
+
+    color:
+        var(--blue);
+
+    line-height:1.7;
+
+}
+
+
+.exp-card{
+
+    padding:25px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:18px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    transition:.25s;
+
+}
+
+
+.exp-card:hover{
+
+    transform:
+        translateX(5px);
+
+    border-color:
+        rgba(74,202,255,.21);
+
+}
+
+
+.exp-card h3{
+
+    font-size:21px;
+
+}
+
+
+.exp-company{
+
+    margin-top:6px;
+
+    color:
+        #c1cada;
+
+    font-size:12px;
+
+}
+
+
+.exp-description{
+
+    margin-top:13px;
+
+    color:
+        var(--muted);
+
+    font-size:13px;
+
+    line-height:1.75;
+
+}
+
+
+/* =========================================================
+   TAGS
+========================================================= */
+
+.tags{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:6px;
+
+    margin-top:16px;
+
+}
+
+
+.tag{
+
+    padding:
+        5px 8px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+
+    border-radius:7px;
+
+    background:
+        rgba(255,255,255,.023);
+
+    font:
+        9px
+        "JetBrains Mono",
+        monospace;
+
+    color:
+        #b7c0d1;
+
+}
+
+
+/* =========================================================
+   PROJECTS / 3D TILT
+========================================================= */
+
+.projects-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+    gap:18px;
+
+    margin-top:45px;
+
+    perspective:
+        1300px;
+
+}
+
+
+.project-card{
+
+    position:relative;
+
+    min-height:330px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    overflow:hidden;
+
+    padding:27px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:
+        var(--radius);
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.039),
+            rgba(255,255,255,.017)
+        );
+
+    transform-style:
+        preserve-3d;
+
+    transition:
+        border-color .2s,
+        box-shadow .2s,
+        transform .12s;
+
+}
+
+
+.project-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+
+    height:180px;
+
+    right:-90px;
+
+    bottom:-110px;
+
+    border-radius:50%;
+
+    background:
+        rgba(68,202,255,.045);
+
+    pointer-events:none;
+
+}
+
+
+.project-card:hover{
+
+    border-color:
+        rgba(74,202,255,.27);
+
+    box-shadow:
+        0 24px 65px
+        rgba(0,0,0,.22);
+
+}
+
+
+.project-index{
+
+    position:absolute;
+
+    right:20px;
+
+    top:14px;
+
+    font:
+        32px
+        "JetBrains Mono",
+        monospace;
+
+    color:
+        rgba(255,255,255,.055);
+
+}
+
+
+.project-category{
+
+    margin-bottom:19px;
+
+    font:
+        9px
+        "JetBrains Mono",
+        monospace;
+
+    color:
+        var(--blue);
+
+    letter-spacing:.10em;
+
+    text-transform:uppercase;
+
+}
+
+
+.project-card h3{
+
+    max-width:78%;
+
+    font-size:22px;
+
+    letter-spacing:-.6px;
+
+}
+
+
+.project-short{
+
+    margin-top:12px;
+
+    color:
+        var(--muted);
+
+    font-size:12px;
+
+    line-height:1.75;
+
+}
+
+
+.project-result{
+
+    margin-top:14px;
+
+    padding-left:11px;
+
+    border-left:
+        2px solid
+        rgba(82,230,168,.8);
+
+    color:
+        #c5d1d3;
+
+    font-size:11px;
+
+    line-height:1.65;
+
+}
+
+
+.project-footer{
+
+    margin-top:auto;
+
+    padding-top:20px;
+
+}
+
+
+.project-actions{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:7px;
+
+    margin-top:17px;
+
+}
+
+
+.project-actions .btn{
+
+    min-height:38px;
+
+    padding:
+        8px 12px;
+
+    font-size:10px;
+
+}
+
+
+/* =========================================================
+   SKILLS
+========================================================= */
+
+.skills-layout{
+
+    display:grid;
+
+    grid-template-columns:
+        320px 1fr;
+
+    gap:30px;
+
+    margin-top:46px;
+
+}
+
+
+.skills-intro-card{
+
+    position:sticky;
+
+    top:100px;
+
+    height:max-content;
+
+    padding:24px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:18px;
+
+    background:
+        var(--panel);
+
+}
+
+
+.skills-intro-card strong{
+
+    display:block;
+
+    font-size:18px;
+
+    margin-bottom:10px;
+
+}
+
+
+.skills-intro-card p{
+
+    color:
+        var(--muted);
+
+    font-size:12px;
+
+    line-height:1.75;
+
+}
+
+
+.skills-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,minmax(0,1fr));
+
+    gap:10px;
+
+}
+
+
+.skill-card{
+
+    padding:18px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:14px;
+
+    background:
+        rgba(255,255,255,.024);
+
+    transition:.22s;
+
+}
+
+
+.skill-card:hover{
+
+    transform:
+        translateY(-4px);
+
+    border-color:
+        rgba(139,108,255,.28);
+
+}
+
+
+.skill-category{
+
+    margin-bottom:8px;
+
+    color:
+        var(--blue);
+
+    font:
+        8px
+        "JetBrains Mono",
+        monospace;
+
+    text-transform:uppercase;
+
+    letter-spacing:.1em;
+
+}
+
+
+.skill-card strong{
+
+    font-size:13px;
+
+}
+
+
+.skill-card p{
+
+    margin-top:7px;
+
+    color:
+        var(--muted);
+
+    font-size:10px;
+
+    line-height:1.55;
+
+}
+
+
+/* =========================================================
+   FOUNDATION
+========================================================= */
+
+.foundation-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:17px;
+
+    margin-top:43px;
+
+}
+
+
+.foundation-panel{
+
+    padding:25px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:20px;
+
+    background:
+        rgba(255,255,255,.024);
+
+}
+
+
+.foundation-panel h3{
+
+    font-size:20px;
+
+    margin-bottom:18px;
+
+}
+
+
+.foundation-list{
+
+    display:grid;
+
+    gap:10px;
+
+}
+
+
+.foundation-item{
+
+    padding:14px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.06);
+
+    border-radius:11px;
+
+    background:
+        rgba(255,255,255,.02);
+
+}
+
+
+.foundation-item strong{
+
+    font-size:12px;
+
+}
+
+
+.foundation-item p{
+
+    margin-top:5px;
+
+    color:
+        var(--muted);
+
+    font-size:10px;
+
+    line-height:1.55;
+
+}
+
+
+/* =========================================================
+   RAG ARCHITECTURE
+========================================================= */
+
+.rag-shell{
+
+    position:relative;
+
+    overflow:hidden;
+
+    margin-top:43px;
+
+    padding:35px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:24px;
+
+    background:
+        rgba(8,12,21,.64);
+
+}
+
+
+.rag-shell::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:auto -140px -230px auto;
+
+    width:420px;
+
+    height:420px;
+
+    border-radius:50%;
+
+    background:
+        rgba(75,201,255,.045);
+
+}
+
+
+.rag-flow{
+
+    position:relative;
+
+    z-index:1;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(6,1fr);
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+
+.rag-node{
+
+    position:relative;
+
+    min-height:150px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    padding:15px 10px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:15px;
+
+    background:
+        rgba(255,255,255,.026);
+
+    transition:.25s;
+
+}
+
+
+.rag-node:hover{
+
+    transform:
+        translateY(-5px);
+
+    border-color:
+        rgba(75,201,255,.26);
+
+}
+
+
+.rag-step{
+
+    color:
+        var(--blue);
+
+    font:
+        8px
+        "JetBrains Mono",
+        monospace;
+
+    margin-bottom:12px;
+
+}
+
+
+.rag-node strong{
+
+    font-size:12px;
+
+}
+
+
+.rag-node small{
+
+    margin-top:7px;
+
+    color:
+        var(--muted);
+
+    font-size:9px;
+
+    line-height:1.45;
+
+}
+
+
+.rag-line{
+
+    position:absolute;
+
+    z-index:-1;
+
+    top:50%;
+
+    left:8%;
+
+    right:8%;
+
+    height:1px;
+
+    overflow:hidden;
+
+    background:
+        rgba(76,203,255,.15);
+
+}
+
+
+.rag-line::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:120px;
+
+    height:100%;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--blue),
+            transparent
+        );
+
+    animation:
+        flowLine 4s
+        linear infinite;
+
+}
+
+
+@keyframes flowLine{
+
+    from{
+        left:-130px;
+    }
+
+    to{
+        left:100%;
+    }
+
+}
+
+
+.rag-note{
+
+    position:relative;
+
+    z-index:1;
+
+    max-width:800px;
+
+    margin:
+        28px auto 0;
+
+    text-align:center;
+
+    color:
+        var(--muted);
+
+    font-size:12px;
+
+    line-height:1.8;
+
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.contact-shell{
+
+    position:relative;
+
+    overflow:hidden;
+
+    padding:
+        68px 34px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:28px;
+
+    text-align:center;
+
+    background:
+
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(121,89,255,.14),
+            transparent 45%
+        ),
+
+        rgba(255,255,255,.018);
+
+}
+
+
+.contact-shell::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:-120px;
+
+    left:50%;
+
+    width:460px;
+
+    height:250px;
+
+    transform:
+        translateX(-50%);
+
+    border-radius:50%;
+
+    background:
+        rgba(90,92,255,.06);
+
+    filter:
+        blur(20px);
+
+}
+
+
+.contact-title{
+
+    position:relative;
+
+    z-index:1;
+
+    font-size:
+        clamp(44px,6vw,72px);
+
+    letter-spacing:
+        -3.8px;
+
+    line-height:1;
+
+}
+
+
+.contact-text{
+
+    position:relative;
+
+    z-index:1;
+
+    max-width:700px;
+
+    margin:
+        20px auto 27px;
+
+    color:
+        var(--muted);
+
+    font-size:14px;
+
+    line-height:1.8;
+
+}
+
+
+.contact-actions{
+
+    position:relative;
+
+    z-index:1;
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    gap:9px;
+
+}
+
+
+.phone-card{
+
+    position:relative;
+
+    z-index:1;
+
+    max-width:650px;
+
+    margin:
+        30px auto 0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+
+    padding:
+        17px 19px;
+
+    text-align:left;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:15px;
+
+    background:
+        rgba(255,255,255,.028);
+
+}
+
+
+.phone-label{
+
+    display:block;
+
+    margin-bottom:5px;
+
+    color:
+        var(--muted2);
+
+    font:
+        8px
+        "JetBrains Mono",
+        monospace;
+
+    letter-spacing:.14em;
+
+}
+
+
+.phone-number{
+
+    font-size:18px;
+
+    font-weight:700;
+
+}
+
+
+.phone-actions{
+
+    display:flex;
+
+    gap:7px;
+
+}
+
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+.overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:3000;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+
+    background:
+        rgba(2,4,9,.77);
+
+    backdrop-filter:
+        blur(11px);
+
+}
+
+
+.overlay.open{
+
+    display:flex;
+
+}
+
+
+.modal{
+
+    width:
+        min(900px,96vw);
+
+    max-height:
+        88vh;
+
+    overflow-y:auto;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:22px;
+
+    background:
+        #090d17;
+
+    box-shadow:
+        0 35px 100px
+        rgba(0,0,0,.42);
+
+}
+
+
+.modal-header{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:5;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    padding:
+        19px 21px;
+
+    border-bottom:
+        1px solid var(--line);
+
+    background:
+        rgba(9,13,23,.96);
+
+    backdrop-filter:
+        blur(16px);
+
+}
+
+
+.modal-body{
+
+    padding:22px;
+
+}
+
+
+.modal-close{
+
+    width:38px;
+
+    height:38px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:10px;
+
+    background:
+        rgba(255,255,255,.03);
+
+    color:white;
+
+}
+
+
+/* =========================================================
+   CHAT
+========================================================= */
+
+.ai-title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+
+.ai-title-dot{
+
+    width:9px;
+
+    height:9px;
+
+    border-radius:50%;
+
+    background:
+        var(--green);
+
+    box-shadow:
+        0 0 15px
+        var(--green);
+
+}
+
+
+.ai-title h3{
+
+    font-size:16px;
+
+}
+
+
+.ai-title small{
+
+    display:block;
+
+    margin-top:3px;
+
+    color:
+        var(--muted);
+
+    font-size:9px;
+
+}
+
+
+.ai-intro{
+
+    display:flex;
+
+    gap:13px;
+
+    padding:16px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+
+    border-radius:13px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(139,108,255,.08),
+            rgba(74,202,255,.025)
+        );
+
+}
+
+
+.ai-avatar{
+
+    flex:0 0 36px;
+
+    height:36px;
+
+    display:grid;
+
+    place-items:center;
+
+    border-radius:10px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--purple),
+            var(--blue)
+        );
+
+    font-size:9px;
+
+    font-weight:800;
+
+}
+
+
+.ai-intro p{
+
+    margin-top:4px;
+
+    color:
+        var(--muted);
+
+    font-size:11px;
+
+    line-height:1.6;
+
+}
+
+
+.prompt-row{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:6px;
+
+    margin:
+        17px 0;
+
+}
+
+
+.prompt-chip{
+
+    padding:
+        7px 10px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:100px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    color:
+        #c5cedd;
+
+    font-size:9px;
+
+}
+
+
+.chat{
+
+    max-height:360px;
+
+    overflow-y:auto;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+    padding-right:5px;
+
+}
+
+
+.chat-message{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:9px;
+
+}
+
+
+.chat-message.user{
+
+    flex-direction:
+        row-reverse;
+
+}
+
+
+.chat-avatar{
+
+    flex:0 0 31px;
+
+    height:31px;
+
+    display:grid;
+
+    place-items:center;
+
+    border-radius:9px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--purple),
+            var(--blue)
+        );
+
+    font-size:8px;
+
+    font-weight:800;
+
+}
+
+
+.chat-message.user
+.chat-avatar{
+
+    background:
+        rgba(255,255,255,.08);
+
+}
+
+
+.chat-content{
+
+    max-width:83%;
+
+    padding:
+        12px 14px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.065);
+
+    border-radius:
+        5px 14px 14px 14px;
+
+    background:
+        rgba(255,255,255,.04);
+
+    color:
+        #d7dfeb;
+
+    font-size:12px;
+
+    line-height:1.7;
+
+}
+
+
+.chat-message.user
+.chat-content{
+
+    border-radius:
+        14px 5px 14px 14px;
+
+    background:
+        rgba(139,108,255,.12);
+
+}
+
+
+.chat-content p{
+
+    margin-bottom:7px;
+
+}
+
+
+.chat-content ul{
+
+    margin:
+        6px 0 7px 18px;
+
+}
+
+
+.ai-sources{
+
+    margin-top:11px;
+
+    padding-top:10px;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,.06);
+
+}
+
+
+.ai-source-title{
+
+    margin-bottom:6px;
+
+    color:
+        var(--green);
+
+    font:
+        8px
+        "JetBrains Mono",
+        monospace;
+
+    letter-spacing:.11em;
+
+}
+
+
+.ai-source{
+
+    margin-top:5px;
+
+    padding:7px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.045);
+
+    border-radius:7px;
+
+    background:
+        rgba(255,255,255,.018);
+
+    color:
+        #aab5c7;
+
+    font-size:9px;
+
+}
+
+
+.thinking{
+
+    display:none;
+
+    align-items:center;
+
+    gap:4px;
+
+    margin:
+        12px 0 4px 40px;
+
+    color:
+        var(--muted);
+
+    font-size:9px;
+
+}
+
+
+.thinking i{
+
+    width:5px;
+
+    height:5px;
+
+    border-radius:50%;
+
+    background:
+        var(--blue);
+
+    animation:
+        thinkingDot 1.2s
+        ease-in-out infinite;
+
+}
+
+
+.thinking i:nth-child(2){
+    animation-delay:.15s;
+}
+
+.thinking i:nth-child(3){
+    animation-delay:.3s;
+}
+
+
+@keyframes thinkingDot{
+
+    0%,
+    80%,
+    100%{
+
+        opacity:.3;
+
+        transform:
+            scale(.65);
+
+    }
+
+    40%{
+
+        opacity:1;
+
+        transform:
+            scale(1);
+
+    }
+
+}
+
+
+.chat-input{
+
+    display:flex;
+
+    gap:7px;
+
+    margin-top:15px;
+
+    padding:7px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:13px;
+
+    background:#060912;
+
+}
+
+
+.chat-input input{
+
+    flex:1;
+
+    min-width:0;
+
+    padding:
+        9px 10px;
+
+    border:0;
+
+    outline:0;
+
+    background:
+        transparent;
+
+    color:white;
+
+}
+
+
+.chat-input button{
+
+    padding:
+        9px 14px;
+
+    border:0;
+
+    border-radius:8px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--purple),
+            #5677ff
+        );
+
+    color:white;
+
+    font-weight:600;
+
+}
+
+
+.ai-disclaimer{
+
+    margin-top:9px;
+
+    text-align:center;
+
+    color:#576176;
+
+    font-size:8px;
+
+}
+
+
+/* =========================================================
+   JD ANALYZER
+========================================================= */
+
+.jd-input{
+
+    width:100%;
+
+    min-height:240px;
+
+    resize:vertical;
+
+    padding:14px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:12px;
+
+    outline:0;
+
+    background:#060912;
+
+    color:white;
+
+    line-height:1.7;
+
+}
+
+
+.jd-result{
+
+    display:none;
+
+    margin-top:18px;
+
+    padding:17px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:13px;
+
+    background:
+        rgba(255,255,255,.03);
+
+    color:#d6deea;
+
+    font-size:12px;
+
+    line-height:1.75;
+
+}
+
+
+/* =========================================================
+   PROJECT DETAIL
+========================================================= */
+
+.detail-section{
+
+    margin-top:24px;
+
+}
+
+
+.detail-label{
+
+    margin-bottom:9px;
+
+    color:
+        var(--blue);
+
+    font:
+        9px
+        "JetBrains Mono",
+        monospace;
+
+    letter-spacing:.14em;
+
+}
+
+
+.detail-copy{
+
+    color:
+        #c3ccda;
+
+    font-size:12px;
+
+    line-height:1.82;
+
+}
+
+
+.architecture-flow{
+
+    display:grid;
+
+    gap:7px;
+
+}
+
+
+.arch-step{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:12px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.065);
+
+    border-radius:10px;
+
+    background:
+        rgba(255,255,255,.025);
+
+}
+
+
+.arch-number{
+
+    flex:0 0 32px;
+
+    height:32px;
+
+    display:grid;
+
+    place-items:center;
+
+    border-radius:8px;
+
+    background:
+        rgba(139,108,255,.10);
+
+    color:
+        #c3b9ff;
+
+    font:
+        9px
+        "JetBrains Mono",
+        monospace;
+
+}
+
+
+.arch-arrow{
+
+    text-align:center;
+
+    color:
+        #68748b;
+
+}
+
+
+/* =========================================================
+   REVEAL
+========================================================= */
+
+.reveal{
+
+    opacity:0;
+
+    transform:
+        translateY(25px);
+
+    transition:
+        opacity .7s ease,
+        transform .7s ease;
+
+}
+
+
+.reveal.visible{
+
+    opacity:1;
+
+    transform:none;
+
+}
+
+
+footer{
+
+    padding:
+        34px 20px;
+
+    text-align:center;
+
+    color:
+        #657086;
+
+    font:
+        9px
+        "JetBrains Mono",
+        monospace;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:1000px){
+
+    .hero-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .ai-scene{
+
+        height:430px;
+
+    }
+
+    .recruiter-strip{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .skills-layout{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .skills-intro-card{
+
+        position:static;
+
+    }
+
+    .rag-flow{
+
+        grid-template-columns:
+            repeat(3,1fr);
+
+    }
+
+    .rag-line{
+
+        display:none;
+
+    }
+
+}
+
+
+@media(max-width:820px){
+
+    .projects-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .skills-grid{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+    .foundation-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .exp-row{
+
+        grid-template-columns:1fr;
+
+        gap:8px;
+
+    }
+
+    .exp-period{
+
+        padding-top:0;
+
+    }
+
+}
+
+
+@media(max-width:650px){
+
+    .navlinks{
+
+        display:none;
+
+    }
+
+    .navbar{
+
+        padding:
+            10px 12px;
+
+    }
+
+    .hero{
+
+        padding-top:
+            115px;
+
+    }
+
+    .hero-title{
+
+        font-size:
+            53px;
+
+        letter-spacing:
+            -3px;
+
+    }
+
+    .hero-actions
+    .btn{
+
+        flex:
+            1 1 calc(50% - 5px);
+
+    }
+
+    .ai-scene{
+
+        height:370px;
+
+        transform:
+            scale(.85);
+
+        margin:
+            -10px 0;
+
+    }
+
+    .recruiter-points{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .section{
+
+        padding:
+            82px 0;
+
+    }
+
+    .section-title{
+
+        letter-spacing:
+            -2px;
+
+    }
+
+    .skills-grid{
+
+        grid-template-columns:
+            1fr 1fr;
+
+    }
+
+    .rag-shell{
+
+        padding:
+            22px 15px;
+
+    }
+
+    .rag-flow{
+
+        grid-template-columns:
+            1fr 1fr;
+
+    }
+
+    .phone-card{
+
+        align-items:flex-start;
+
+        flex-direction:column;
+
+    }
+
+    .phone-actions{
+
+        width:100%;
+
+    }
+
+    .phone-actions .btn{
+
+        flex:1;
+
+    }
+
+    .contact-shell{
+
+        padding:
+            52px 20px;
+
+    }
+
+    .contact-title{
+
+        letter-spacing:
+            -2.5px;
+
+    }
+
+    .chat-content{
+
+        max-width:90%;
+
+    }
+
+}
+
+
+@media(prefers-reduced-motion:reduce){
+
+    *{
+
+        animation-duration:
+            .01ms!important;
+
+        animation-iteration-count:
+            1!important;
+
+        scroll-behavior:auto!important;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<canvas id="networkCanvas"></canvas>
+
+<div id="cursorGlow"></div>
+
+
+<!-- ======================================================
+NAV
+====================================================== -->
+
+<div class="nav-shell">
+
+<nav class="navbar">
+
+<a
+href="#home"
+class="brand"
+>
+
+<span class="brand-mark">
+MP
+</span>
+
+<span id="navSiteName">
+Manas.AI
+</span>
+
+</a>
+
+
+<div class="navlinks">
+
+<a href="#experience">
+Experience
+</a>
+
+<a href="#projects">
+Projects
+</a>
+
+<a href="#skills">
+Skills
+</a>
+
+<a href="#architecture">
+Architecture
+</a>
+
+<a href="#contact">
+Contact
+</a>
+
+<button
+class="btn nav-cta"
+onclick="openModal('copilotModal')"
+>
+Ask AI
+</button>
+
+</div>
+
+</nav>
+
+</div>
+
+
+<!-- ======================================================
+HERO
+====================================================== -->
+
+<header
+class="hero"
+id="home"
+>
+
+<div class="container hero-grid">
+
+
+<div>
+
+
+<div
+class="hero-badge reveal"
+>
+
+<span class="online-dot"></span>
+
+<span id="heroBadge">
+
+AI ENGINEER × SOFTWARE DEVELOPER
+
+</span>
+
+</div>
+
+
+<h1 class="hero-title reveal">
+
+<span id="heroTitle">
+
+Don't just read my portfolio.
+
+</span>
+
+<span
+class="line2 gradient-text"
+id="heroHighlight"
+>
+
+Evaluate me.
+
+</span>
+
+</h1>
+
+
+<p
+class="hero-description reveal"
+id="heroDescription"
+>
+
+Loading portfolio profile...
+
+</p>
+
+
+<div class="hero-actions reveal">
+
+
+<button
+class="btn btn-primary"
+onclick="openModal('copilotModal')"
+>
+
+✦ Ask Manas AI
+
+</button>
+
+
+<button
+class="btn btn-green"
+onclick="openModal('jdModal')"
+>
+
+◎ Compare With Your JD
+
+</button>
+
+
+<a
+class="btn"
+id="resumeButton"
+href="#"
+download="Manas_Pandey_Resume.pdf"
+>
+
+↓ Resume
+
+</a>
+
+
+<a
+class="btn"
+href="https://github.com/manas2206"
+target="_blank"
+rel="noopener noreferrer"
+>
+
+GitHub ↗
+
+</a>
+
+
+</div>
+
+
+<div class="hero-meta reveal">
+
+
+<div class="hero-meta-item">
+
+<strong id="projectCount">
+—
+</strong>
+
+<span>
+Selected projects
+</span>
+
+</div>
+
+
+<div class="hero-meta-item">
+
+<strong id="experienceCount">
+—
+</strong>
+
+<span>
+Professional roles
+</span>
+
+</div>
+
+
+<div class="hero-meta-item">
+
+<strong>
+RAG
+</strong>
+
+<span>
+Evidence-grounded AI
+</span>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+<!-- 3D SCENE -->
+
+<div class="ai-scene reveal">
+
+
+<div class="tech-float tech-1">
+
+RAG
+
+</div>
+
+
+<div class="tech-float tech-2">
+
+FastAPI
+
+</div>
+
+
+<div class="tech-float tech-3">
+
+YOLOv8
+
+</div>
+
+
+<div class="tech-float tech-4">
+
+LangGraph
+
+</div>
+
+
+<div
+class="ai-core-wrap"
+id="aiCore"
+>
+
+
+<div class="core-glow"></div>
+
+
+<div class="orbit orbit-a">
+
+<div class="orbit-particle"></div>
+
+</div>
+
+
+<div class="orbit orbit-b">
+
+<div class="orbit-particle"></div>
+
+</div>
+
+
+<div class="orbit orbit-c">
+
+<div class="orbit-particle"></div>
+
+</div>
+
+
+<div class="core-sphere"></div>
+
+
+<div class="core-center-label">
+
+<div>
+
+MANAS.AI
+
+<br>
+
+RECRUITER ENGINE
+
+</div>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+</header>
+
+
+<!-- ======================================================
+RECRUITER EXPERIENCE
+====================================================== -->
+
+<section class="section">
+
+<div class="container">
+
+
+<div class="recruiter-strip">
+
+
+<div class="recruiter-panel reveal">
+
+<div class="section-kicker">
+
+RECRUITER COPILOT
+
+</div>
+
+<h3>
+
+Don't just browse.
+Ask the portfolio.
+
+</h3>
+
+<p>
+
+This website includes an evidence-grounded AI recruiter assistant.
+Ask about experience, projects, FastAPI, RAG, computer vision,
+deployment or role suitability.
+
+</p>
+
+
+<div class="recruiter-points">
+
+<div class="recruiter-point">
+✓ Evidence-backed answers
+</div>
+
+<div class="recruiter-point">
+✓ Professional vs project distinction
+</div>
+
+<div class="recruiter-point">
+✓ Visible skill gaps
+</div>
+
+<div class="recruiter-point">
+✓ Follow-up conversation memory
+</div>
+
+</div>
+
+</div>
+
+
+<div class="recruiter-panel reveal">
+
+<div class="section-kicker">
+
+ROLE MATCH
+
+</div>
+
+<h3>
+
+Have a job description?
+
+</h3>
+
+<p>
+
+Paste the role requirements and let Manas.AI compare them against
+verified experience, technical skills and projects.
+
+</p>
+
+
+<div
+style="
+display:grid;
+gap:8px;
+margin-top:20px;
+"
+>
+
+<button
+class="btn btn-primary"
+onclick="openModal('jdModal')"
+>
+
+Analyze My Fit
+
+</button>
+
+<button
+class="btn"
+onclick="openModal('copilotModal')"
+>
+
+Ask a Recruiter Question
+
+</button>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- ======================================================
+EXPERIENCE
+====================================================== -->
+
+<section
+class="section"
+id="experience"
+>
+
+<div class="container">
+
+
+<div class="section-kicker reveal">
+
+01 / EXPERIENCE
+
+</div>
+
+
+<h2 class="section-title reveal">
+
+Production thinking,
+
+<span class="gradient-text">
+
+not just project demos.
+
+</span>
+
+</h2>
+
+
+<p class="section-subtitle reveal">
+
+Professional experience across backend development,
+computer vision, machine learning integration,
+REST APIs, database systems and deployment.
+
+</p>
+
+
+<div
+class="timeline"
+id="experienceGrid"
+>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- ======================================================
+PROJECTS
+====================================================== -->
+
+<section
+class="section"
+id="projects"
+>
+
+<div class="container">
+
+
+<div class="section-kicker reveal">
+
+02 / ENGINEERING WORK
+
+</div>
+
+
+<h2 class="section-title reveal">
+
+Projects that explain
+
+<span class="gradient-text">
+
+how I think and build.
+
+</span>
+
+</h2>
+
+
+<p class="section-subtitle reveal">
+
+Each project includes the technical problem,
+implementation approach, technology stack,
+architecture and outcome.
+
+</p>
+
+
+<div
+class="projects-grid"
+id="projectsGrid"
+>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- ======================================================
+SKILLS
+====================================================== -->
+
+<section
+class="section"
+id="skills"
+>
+
+<div class="container">
+
+
+<div class="section-kicker reveal">
+
+03 / ENGINEERING STACK
+
+</div>
+
+
+<h2 class="section-title reveal">
+
+A stack built around
+
+<span class="gradient-text">
+
+AI + software engineering.
+
+</span>
+
+</h2>
+
+
+<div class="skills-layout">
+
+
+<div class="skills-intro-card reveal">
+
+<strong>
+
+Beyond API wrappers.
+
+</strong>
+
+<p>
+
+My engineering work combines AI application development
+with backend APIs, databases, computer vision,
+real-time systems, authentication, containers
+and cloud deployment.
+
+</p>
+
+</div>
+
+
+<div
+class="skills-grid"
+id="skillsGrid"
+>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- ======================================================
+EDUCATION
+====================================================== -->
+
+<section class="section">
+
+<div class="container">
+
+
+<div class="section-kicker reveal">
+
+04 / FOUNDATION
+
+</div>
+
+
+<h2 class="section-title reveal">
+
+Education &
+
+<span class="gradient-text">
+
+credentials.
+
+</span>
+
+</h2>
+
+
+<div class="foundation-grid">
+
+
+<div class="foundation-panel reveal">
+
+<h3>
+Education
+</h3>
+
+<div
+class="foundation-list"
+id="educationList"
+>
+</div>
+
+</div>
+
+
+<div class="foundation-panel reveal">
+
+<h3>
+Certifications
+</h3>
+
+<div
+class="foundation-list"
+id="certificationList"
+>
+</div>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- ======================================================
+RAG ARCHITECTURE
+====================================================== -->
+
+<section
+class="section"
+id="architecture"
+>
+
+<div class="container">
+
+
+<div class="section-kicker reveal">
+
+05 / BUILT WITH RAG
+
+</div>
+
+
+<h2 class="section-title reveal">
+
+This portfolio is itself
+
+<span class="gradient-text">
+
+an AI system.
+
+</span>
+
+</h2>
+
+
+<p class="section-subtitle reveal">
+
+Manas.AI retrieves verified portfolio evidence
+before generating recruiter-facing responses.
+
+</p>
+
+
+<div class="rag-shell reveal">
+
+
+<div class="rag-line"></div>
+
+
+<div class="rag-flow">
+
+
+<div class="rag-node">
+
+<div class="rag-step">
+01
+</div>
+
+<strong>
+Recruiter
+</strong>
+
+<small>
+asks a question
+</small>
+
+</div>
+
+
+<div class="rag-node">
+
+<div class="rag-step">
+02
+</div>
+
+<strong>
+FastAPI
+</strong>
+
+<small>
+receives the request
+</small>
+
+</div>
+
+
+<div class="rag-node">
+
+<div class="rag-step">
+03
+</div>
+
+<strong>
+Embeddings
+</strong>
+
+<small>
+semantic representation
+</small>
+
+</div>
+
+
+<div class="rag-node">
+
+<div class="rag-step">
+04
+</div>
+
+<strong>
+Retrieval
+</strong>
+
+<small>
+finds matching evidence
+</small>
+
+</div>
+
+
+<div class="rag-node">
+
+<div class="rag-step">
+05
+</div>
+
+<strong>
+Groq LLM
+</strong>
+
+<small>
+generates from context
+</small>
+
+</div>
+
+
+<div class="rag-node">
+
+<div class="rag-step">
+06
+</div>
+
+<strong>
+Answer + Sources
+</strong>
+
+<small>
+shown to recruiter
+</small>
+
+</div>
+
+
+</div>
+
+
+<div class="rag-note">
+
+The portfolio AI is instructed to avoid inventing
+unsupported experience. If verified evidence is missing,
+it should expose the gap rather than fabricate a stronger profile.
+
+</div>
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- ======================================================
+CONTACT
+====================================================== -->
+
+<section
+class="section"
+id="contact"
+>
+
+<div class="container">
+
+
+<div class="contact-shell reveal">
+
+
+<div class="section-kicker"
+style="
+justify-content:center;
+"
+>
+
+06 / CONTACT
+
+</div>
+
+
+<h2 class="contact-title">
+
+Let's build something
+
+<span class="gradient-text">
+
+intelligent.
+
+</span>
+
+</h2>
+
+
+<p
+class="contact-text"
+id="contactAbout"
+>
+
+AI-focused Software Developer combining backend engineering,
+Generative AI, RAG and computer vision.
+
+</p>
+
+
+<div class="contact-actions">
+
+
+<a
+class="btn btn-primary"
+id="emailButton"
+href="#"
+>
+
+Email Me
+
+</a>
+
+
+<a
+class="btn"
+id="linkedinButton"
+href="#"
+target="_blank"
+rel="noopener noreferrer"
+>
+
+LinkedIn ↗
+
+</a>
+
+
+<a
+class="btn"
+href="https://github.com/manas2206"
+target="_blank"
+rel="noopener noreferrer"
+>
+
+GitHub ↗
+
+</a>
+
+
+<a
+class="btn"
+id="resumeButtonContact"
+href="#"
+download="Manas_Pandey_Resume.pdf"
+>
+
+Resume ↓
+
+</a>
+
+
+</div>
+
+
+<div class="phone-card">
+
+
+<div>
+
+<span class="phone-label">
+PHONE
+</span>
+
+<a
+class="phone-number"
+id="phoneNumber"
+href="#"
+>
+
++91 93693 28122
+
+</a>
+
+</div>
+
+
+<div class="phone-actions">
+
+
+<a
+class="btn btn-green"
+id="callButton"
+href="#"
+>
+
+Call
+
+</a>
+
+
+<button
+class="btn"
+onclick="copyPhoneNumber(this)"
+>
+
+Copy Number
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<footer>
+
+<span id="footerSiteName">
+Manas.AI
+</span>
+
+· Evidence-grounded portfolio ·
+
+<span id="year"></span>
+
+</footer>
+
+
+<!-- ======================================================
+AI CHAT MODAL
+====================================================== -->
+
+<div
+class="overlay"
+id="copilotModal"
+>
+
+<div class="modal">
+
+
+<div class="modal-header">
+
+
+<div class="ai-title">
+
+
+<span class="ai-title-dot"></span>
+
+
+<div>
+
+<h3>
+Manas AI
+</h3>
+
+<small>
+Evidence-grounded Recruiter Copilot
+</small>
+
+</div>
+
+
+</div>
+
+
+<div
+style="
+display:flex;
+gap:6px;
+"
+>
+
+
+<button
+class="modal-close"
+onclick="resetManasAI()"
+title="New chat"
+>
+
+↻
+
+</button>
+
+
+<button
+class="modal-close"
+onclick="closeModal('copilotModal')"
+>
+
+×
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+<div class="modal-body">
+
+
+<div class="ai-intro">
+
+
+<div class="ai-avatar">
+AI
+</div>
+
+
+<div>
+
+<strong>
+Ask anything about Manas.
+</strong>
+
+<p>
+
+Answers are generated from verified portfolio,
+experience and project evidence.
+
+</p>
+
+</div>
+
+
+</div>
+
+
+<div class="prompt-row">
+
+
+<button
+class="prompt-chip"
+onclick="askPreset('Why should we interview Manas for an AI Engineer role?')"
+>
+Why interview Manas?
+</button>
+
+
+<button
+class="prompt-chip"
+onclick="askPreset('Does Manas have professional FastAPI experience?')"
+>
+FastAPI
+</button>
+
+
+<button
+class="prompt-chip"
+onclick="askPreset('Tell me about Manas computer vision experience.')"
+>
+Computer Vision
+</button>
+
+
+<button
+class="prompt-chip"
+onclick="askPreset('What are the strongest projects for an AI Engineer role?')"
+>
+Best Projects
+</button>
+
+
+<button
+class="prompt-chip"
+onclick="askPreset('Does Manas have Kafka production experience?')"
+>
+Kafka?
+</button>
+
+
+</div>
+
+
+<div
+class="chat"
+id="aiConversation"
+>
+
+
+<div class="chat-message">
+
+
+<div class="chat-avatar">
+AI
+</div>
+
+
+<div class="chat-content">
+
+<strong>
+Hello, I'm Manas AI.
+</strong>
+
+<p>
+
+I can help evaluate professional experience,
+projects, skills and role fit.
+
+</p>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+<div
+class="thinking"
+id="aiThinking"
+>
+
+<i></i>
+<i></i>
+<i></i>
+
+<span>
+Retrieving verified evidence...
+</span>
+
+</div>
+
+
+<div class="chat-input">
+
+
+<input
+id="copilotInput"
+type="text"
+placeholder="Ask about RAG, FastAPI, projects, deployment..."
+autocomplete="off"
+>
+
+
+<button
+id="askButton"
+onclick="askCopilot()"
+>
+
+Ask →
+
+</button>
+
+
+</div>
+
+
+<div class="ai-disclaimer">
+
+Evidence-grounded AI.
+Verify critical hiring decisions through interview.
+
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<!-- ======================================================
+JD MODAL
+====================================================== -->
+
+<div
+class="overlay"
+id="jdModal"
+>
+
+<div class="modal">
+
+
+<div class="modal-header">
+
+
+<div>
+
+<h3>
+AI Job Match Analyzer
+</h3>
+
+<div
+style="
+margin-top:4px;
+color:var(--muted);
+font-size:10px;
+"
+>
+
+Compare a real JD against verified portfolio evidence.
+
+</div>
+
+</div>
+
+
+<button
+class="modal-close"
+onclick="closeModal('jdModal')"
+>
+
+×
+
+</button>
+
+
+</div>
+
+
+<div class="modal-body">
+
+
+<textarea
+class="jd-input"
+id="jdInput"
+placeholder="Paste the complete job description here..."
+></textarea>
+
+
+<button
+class="btn btn-primary"
+id="jdAnalyzeButton"
+onclick="analyzeJD()"
+style="
+margin-top:11px;
+"
+>
+
+Analyze Role Match
+
+</button>
+
+
+<div
+id="jdLoading"
+style="
+display:none;
+margin-top:15px;
+color:var(--muted);
+font-size:11px;
+"
+>
+
+Analyzing requirements against verified evidence...
+
+</div>
+
+
+<div
+class="jd-result"
+id="jdResult"
+>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   CONFIG
+========================================================= */
+
+const API_BASE =
+    (location.hostname === "localhost" || location.hostname === "127.0.0.1")
+        ? "http://127.0.0.1:8000"
+        : "https://manas-ai-api.onrender.com";
+
+
+const MANAS_AI_API =
+    `${API_BASE}/api/chat`;
+
+
+const JD_API =
+    `${API_BASE}/api/jd/analyze`;
+
+
+let portfolioSettings =
+    null;
+
+
+let manasAISessionId =
+    localStorage.getItem(
+        "manas_ai_session"
+    );
+
+
+let aiIsThinking =
+    false;
+
+
+/* =========================================================
+   ESCAPE
+========================================================= */
+
+function escapeHTML(
+    value
+){
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        value ?? "";
+
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================================================
+   LOAD PORTFOLIO
+========================================================= */
+
+async function loadPortfolio(){
+
+    try{
+
+
+        const responses =
+            await Promise.all([
+
+                fetch(
+                    `${API_BASE}/api/public/settings`
+                ),
+
+                fetch(
+                    `${API_BASE}/api/public/experience`
+                ),
+
+                fetch(
+                    `${API_BASE}/api/public/projects`
+                ),
+
+                fetch(
+                    `${API_BASE}/api/public/skills`
+                ),
+
+                fetch(
+                    `${API_BASE}/api/public/education`
+                ),
+
+                fetch(
+                    `${API_BASE}/api/public/certifications`
+                )
+
+            ]);
+
+
+        for(
+            const response of responses
+        ){
+
+            if(
+                !response.ok
+            ){
+
+                throw new Error(
+                    "Portfolio API unavailable"
+                );
+
+            }
+
+        }
+
+
+        const [
+
+            settings,
+            experience,
+            projects,
+            skills,
+            education,
+            certifications
+
+        ] =
+            await Promise.all(
+
+                responses.map(
+                    response =>
+                        response.json()
+                )
+
+            );
+
+
+        portfolioSettings =
+            settings;
+
+
+        renderSettings(
+            settings
+        );
+
+
+        renderExperience(
+            experience
+        );
+
+
+        renderProjects(
+            projects
+        );
+
+
+        renderSkills(
+            skills
+        );
+
+
+        renderEducation(
+            education
+        );
+
+
+        renderCertifications(
+            certifications
+        );
+
+
+        document
+        .getElementById(
+            "projectCount"
+        )
+        .textContent =
+            projects.length;
+
+
+        document
+        .getElementById(
+            "experienceCount"
+        )
+        .textContent =
+            experience.length;
+
+
+        initializeTiltCards();
+
+
+    }
+
+    catch(error){
+
+
+        console.error(
+            error
+        );
+
+
+        document
+        .getElementById(
+            "heroDescription"
+        )
+        .textContent =
+            "The portfolio API is temporarily unavailable.";
+
+    }
+
+}
+
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+function renderSettings(
+    settings
+){
+
+    if(
+        !settings
+    ){
+
+        return;
+
+    }
+
+
+    const siteName =
+        settings.site_name
+        ||
+        "Manas.AI";
+
+
+    document
+    .getElementById(
+        "navSiteName"
+    )
+    .textContent =
+        siteName;
+
+
+    document
+    .getElementById(
+        "footerSiteName"
+    )
+    .textContent =
+        siteName;
+
+
+    document
+    .getElementById(
+        "heroBadge"
+    )
+    .textContent =
+        settings.badge
+        ||
+        "AI ENGINEER × SOFTWARE DEVELOPER";
+
+
+    document
+    .getElementById(
+        "heroTitle"
+    )
+    .textContent =
+        settings.hero_title
+        ||
+        "Don't just read my portfolio.";
+
+
+    document
+    .getElementById(
+        "heroHighlight"
+    )
+    .textContent =
+        settings.hero_highlight
+        ||
+        "Evaluate me.";
+
+
+    document
+    .getElementById(
+        "heroDescription"
+    )
+    .textContent =
+        settings.hero_description
+        ||
+        "";
+
+
+    document
+    .getElementById(
+        "contactAbout"
+    )
+    .textContent =
+        settings.about_text
+        ||
+        settings.hero_description
+        ||
+        "";
+
+
+    if(
+        settings.email
+    ){
+
+        document
+        .getElementById(
+            "emailButton"
+        )
+        .href =
+            `mailto:${settings.email}`;
+
+    }
+
+
+    if(
+        settings.linkedin
+    ){
+
+        document
+        .getElementById(
+            "linkedinButton"
+        )
+        .href =
+            settings.linkedin;
+
+    }
+
+
+    if(
+        settings.resume_path
+    ){
+
+        document
+        .getElementById(
+            "resumeButton"
+        )
+        .href =
+            settings.resume_path;
+
+
+        document
+        .getElementById(
+            "resumeButtonContact"
+        )
+        .href =
+            settings.resume_path;
+
+    }
+
+
+    if(
+        settings.phone
+    ){
+
+        const phone =
+            normalizePhone(
+                settings.phone
+            );
+
+
+        document
+        .getElementById(
+            "phoneNumber"
+        )
+        .textContent =
+            formatPhone(
+                phone
+            );
+
+
+        document
+        .getElementById(
+            "phoneNumber"
+        )
+        .href =
+            `tel:${phone}`;
+
+
+        document
+        .getElementById(
+            "callButton"
+        )
+        .href =
+            `tel:${phone}`;
+
+    }
+
+}
+
+
+/* =========================================================
+   EXPERIENCE
+========================================================= */
+
+function renderExperience(
+    items
+){
+
+    const container =
+        document
+        .getElementById(
+            "experienceGrid"
+        );
+
+
+    if(
+        !items.length
+    ){
+
+        container.innerHTML =
+            "<p>No experience records.</p>";
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+
+        items
+        .map(
+
+            item => `
+
+            <article class="exp-row reveal">
+
+
+                <span class="exp-dot"></span>
+
+
+                <div class="exp-period">
+
+                    ${
+                        escapeHTML(
+                            item.start_date
+                            ||
+                            ""
+                        )
+                    }
+
+                    <br>
+
+                    —
+
+                    <br>
+
+                    ${
+                        escapeHTML(
+                            item.end_date
+                            ||
+                            ""
+                        )
+                    }
+
+                </div>
+
+
+                <div class="exp-card">
+
+
+                    <h3>
+
+                        ${
+                            escapeHTML(
+                                item.role
+                            )
+                        }
+
+                    </h3>
+
+
+                    <div class="exp-company">
+
+                        ${
+                            escapeHTML(
+                                item.company
+                            )
+                        }
+
+                    </div>
+
+
+                    <p class="exp-description">
+
+                        ${
+                            escapeHTML(
+                                item.description
+                                ||
+                                ""
+                            )
+                        }
+
+                    </p>
+
+
+                    ${
+                        renderTechnologyTags(
+                            item.technologies
+                        )
+                    }
+
+
+                </div>
+
+
+            </article>
+
+            `
+
+        )
+        .join("");
+
+
+    observeNewRevealNodes();
+
+}
+
+
+/* =========================================================
+   PROJECTS
+========================================================= */
+
+function renderProjects(
+    items
+){
+
+    const container =
+        document
+        .getElementById(
+            "projectsGrid"
+        );
+
+
+    if(
+        !items.length
+    ){
+
+        container.innerHTML =
+            "<p>No projects found.</p>";
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+
+        items
+        .map(
+
+            (item,index) => `
+
+            <article
+            class="project-card reveal"
+            >
+
+
+                <div class="project-index">
+
+                    ${
+                        String(
+                            index + 1
+                        )
+                        .padStart(
+                            2,
+                            "0"
+                        )
+                    }
+
+                </div>
+
+
+                <div class="project-category">
+
+                    ${
+                        escapeHTML(
+                            item.category
+                            ||
+                            "PROJECT"
+                        )
+                    }
+
+                </div>
+
+
+                <h3>
+
+                    ${
+                        escapeHTML(
+                            item.title
+                        )
+                    }
+
+                </h3>
+
+
+                <p class="project-short">
+
+                    ${
+                        escapeHTML(
+                            item.short_description
+                            ||
+                            ""
+                        )
+                    }
+
+                </p>
+
+
+                ${
+                    item.result
+
+                    ?
+
+                    `
+
+                    <p class="project-result">
+
+                        ${
+                            escapeHTML(
+                                item.result
+                            )
+                        }
+
+                    </p>
+
+                    `
+
+                    :
+
+                    ""
+                }
+
+
+                <div class="project-footer">
+
+
+                    ${
+                        renderTechnologyTags(
+                            item.technologies
+                        )
+                    }
+
+
+                    <div class="project-actions">
+
+
+                        <button
+                        class="btn btn-primary project-details-button"
+                        data-project-index="${index}"
+                        >
+
+                        View Details
+
+                        </button>
+
+
+                        ${
+                            item.architecture
+
+                            ?
+
+                            `
+
+                            <button
+                            class="btn project-architecture-button"
+                            data-project-index="${index}"
+                            >
+
+                            Architecture
+
+                            </button>
+
+                            `
+
+                            :
+
+                            ""
+                        }
+
+
+                    </div>
+
+
+                </div>
+
+
+            </article>
+
+            `
+
+        )
+        .join("");
+
+
+    window.portfolioProjects =
+        items;
+
+
+    document
+    .querySelectorAll(
+        ".project-details-button"
+    )
+    .forEach(
+
+        button => {
+
+            button
+            .addEventListener(
+
+                "click",
+
+                () => {
+
+                    const index =
+                        Number(
+                            button.dataset.projectIndex
+                        );
+
+
+                    showProjectDetails(
+                        items[index]
+                    );
+
+                }
+
+            );
+
+        }
+
+    );
+
+
+    document
+    .querySelectorAll(
+        ".project-architecture-button"
+    )
+    .forEach(
+
+        button => {
+
+            button
+            .addEventListener(
+
+                "click",
+
+                () => {
+
+                    const project =
+                        items[
+                            Number(
+                                button.dataset.projectIndex
+                            )
+                        ];
+
+
+                    showArchitectureOnly(
+                        project
+                    );
+
+                }
+
+            );
+
+        }
+
+    );
+
+
+    observeNewRevealNodes();
+
+}
+
+
+/* =========================================================
+   SKILLS
+========================================================= */
+
+function renderSkills(
+    items
+){
+
+    document
+    .getElementById(
+        "skillsGrid"
+    )
+    .innerHTML =
+
+        items
+        .map(
+
+            item => `
+
+            <div class="skill-card reveal">
+
+
+                <div class="skill-category">
+
+                    ${
+                        escapeHTML(
+                            item.category
+                            ||
+                            "ENGINEERING"
+                        )
+                    }
+
+                </div>
+
+
+                <strong>
+
+                    ${
+                        escapeHTML(
+                            item.name
+                        )
+                    }
+
+                </strong>
+
+
+                ${
+                    item.description
+
+                    ?
+
+                    `
+
+                    <p>
+
+                        ${
+                            escapeHTML(
+                                item.description
+                            )
+                        }
+
+                    </p>
+
+                    `
+
+                    :
+
+                    ""
+                }
+
+
+            </div>
+
+            `
+
+        )
+        .join("");
+
+
+    observeNewRevealNodes();
+
+}
+
+
+/* =========================================================
+   EDUCATION
+========================================================= */
+
+function renderEducation(
+    items
+){
+
+    document
+    .getElementById(
+        "educationList"
+    )
+    .innerHTML =
+
+        items
+        .map(
+
+            item => `
+
+            <div class="foundation-item">
+
+
+                <strong>
+
+                    ${
+                        escapeHTML(
+                            item.degree
+                            ||
+                            ""
+                        )
+                    }
+
+                </strong>
+
+
+                <p>
+
+                    ${
+                        escapeHTML(
+                            item.institution
+                            ||
+                            ""
+                        )
+                    }
+
+                </p>
+
+
+                <p>
+
+                    ${
+                        escapeHTML(
+                            item.start_year
+                            ||
+                            ""
+                        )
+                    }
+
+                    —
+
+                    ${
+                        escapeHTML(
+                            item.end_year
+                            ||
+                            ""
+                        )
+                    }
+
+                    ${
+                        item.location
+
+                        ?
+
+                        " · "
+
+                        +
+
+                        escapeHTML(
+                            item.location
+                        )
+
+                        :
+
+                        ""
+                    }
+
+                </p>
+
+
+            </div>
+
+            `
+
+        )
+        .join("");
+
+}
+
+
+/* =========================================================
+   CERTIFICATIONS
+========================================================= */
+
+function renderCertifications(
+    items
+){
+
+    document
+    .getElementById(
+        "certificationList"
+    )
+    .innerHTML =
+
+        items
+        .map(
+
+            item => `
+
+            <div class="foundation-item">
+
+
+                <strong>
+
+                    ${
+                        escapeHTML(
+                            item.name
+                        )
+                    }
+
+                </strong>
+
+
+                <p>
+
+                    ${
+                        escapeHTML(
+                            item.issuer
+                            ||
+                            ""
+                        )
+                    }
+
+                    ${
+                        item.issue_date
+
+                        ?
+
+                        " · "
+
+                        +
+
+                        escapeHTML(
+                            item.issue_date
+                        )
+
+                        :
+
+                        ""
+                    }
+
+                </p>
+
+
+            </div>
+
+            `
+
+        )
+        .join("");
+
+}
+
+
+/* =========================================================
+   TAGS
+========================================================= */
+
+function renderTechnologyTags(
+    technologies
+){
+
+    if(
+        !technologies
+    ){
+
+        return "";
+
+    }
+
+
+    const tags =
+        technologies
+        .split(",")
+        .map(
+            value =>
+                value.trim()
+        )
+        .filter(Boolean);
+
+
+    return `
+
+    <div class="tags">
+
+        ${
+            tags
+            .map(
+
+                tag => `
+
+                <span class="tag">
+
+                    ${
+                        escapeHTML(
+                            tag
+                        )
+                    }
+
+                </span>
+
+                `
+
+            )
+            .join("")
+        }
+
+    </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   PROJECT DETAIL
+========================================================= */
+
+function showProjectDetails(
+    project
+){
+
+    const architecture =
+        parseArchitecture(
+            project.architecture
+        );
+
+
+    const modal =
+        createDynamicModal(
+
+            project.title,
+
+            `
+
+            <div class="project-category">
+
+                ${
+                    escapeHTML(
+                        project.category
+                        ||
+                        "PROJECT"
+                    )
+                }
+
+            </div>
+
+
+            <div class="detail-section">
+
+                <div class="detail-label">
+                WHAT IT SOLVES
+                </div>
+
+                <p class="detail-copy">
+
+                    ${
+                        escapeHTML(
+                            project.short_description
+                            ||
+                            ""
+                        )
+                    }
+
+                </p>
+
+            </div>
+
+
+            ${
+                project.detailed_description
+
+                ?
+
+                `
+
+                <div class="detail-section">
+
+                    <div class="detail-label">
+                    HOW I BUILT IT
+                    </div>
+
+                    <p class="detail-copy">
+
+                        ${
+                            escapeHTML(
+                                project.detailed_description
+                            )
+                        }
+
+                    </p>
+
+                </div>
+
+                `
+
+                :
+
+                ""
+            }
+
+
+            <div class="detail-section">
+
+                <div class="detail-label">
+                TECHNOLOGIES
+                </div>
+
+                ${
+                    renderTechnologyTags(
+                        project.technologies
+                    )
+                }
+
+            </div>
+
+
+            ${
+                architecture.length
+
+                ?
+
+                `
+
+                <div class="detail-section">
+
+                    <div class="detail-label">
+                    ARCHITECTURE
+                    </div>
+
+                    ${
+                        renderArchitecture(
+                            architecture
+                        )
+                    }
+
+                </div>
+
+                `
+
+                :
+
+                ""
+            }
+
+
+            ${
+                project.result
+
+                ?
+
+                `
+
+                <div class="detail-section">
+
+                    <div class="detail-label">
+                    OUTCOME
+                    </div>
+
+                    <p class="detail-copy">
+
+                        ${
+                            escapeHTML(
+                                project.result
+                            )
+                        }
+
+                    </p>
+
+                </div>
+
+                `
+
+                :
+
+                ""
+            }
+
+
+            <div class="detail-section">
+
+                <div class="detail-label">
+                PROJECT TYPE
+                </div>
+
+                <span class="tag">
+
+                    ${
+                        escapeHTML(
+                            project.project_type
+                            ||
+                            "Portfolio Project"
+                        )
+                    }
+
+                </span>
+
+            </div>
+
+            `
+
+        );
+
+
+    document
+    .body
+    .appendChild(
+        modal
+    );
+
+}
+
+
+/* =========================================================
+   ARCHITECTURE ONLY
+========================================================= */
+
+function showArchitectureOnly(
+    project
+){
+
+    const steps =
+        parseArchitecture(
+            project.architecture
+        );
+
+
+    const modal =
+        createDynamicModal(
+
+            `${project.title} — Architecture`,
+
+            `
+
+            <p
+            class="detail-copy"
+            style="
+            margin-bottom:20px;
+            "
+            >
+
+            System flow for this project.
+
+            </p>
+
+            ${
+                renderArchitecture(
+                    steps
+                )
+            }
+
+            `
+
+        );
+
+
+    document
+    .body
+    .appendChild(
+        modal
+    );
+
+}
+
+
+function parseArchitecture(
+    architecture
+){
+
+    if(
+        !architecture
+    ){
+
+        return [];
+
+    }
+
+
+    return architecture
+        .split("->")
+        .map(
+            item =>
+                item.trim()
+        )
+        .filter(Boolean);
+
+}
+
+
+function renderArchitecture(
+    steps
+){
+
+    return `
+
+    <div class="architecture-flow">
+
+        ${
+            steps
+            .map(
+
+                (step,index) => `
+
+                <div class="arch-step">
+
+                    <div class="arch-number">
+
+                        ${
+                            String(
+                                index + 1
+                            )
+                            .padStart(
+                                2,
+                                "0"
+                            )
+                        }
+
+                    </div>
+
+                    <strong>
+
+                        ${
+                            escapeHTML(
+                                step
+                            )
+                        }
+
+                    </strong>
+
+                </div>
+
+
+                ${
+                    index <
+                    steps.length - 1
+
+                    ?
+
+                    `
+
+                    <div class="arch-arrow">
+                    ↓
+                    </div>
+
+                    `
+
+                    :
+
+                    ""
+                }
+
+                `
+
+            )
+            .join("")
+        }
+
+    </div>
+
+    `;
+
+}
+
+
+function createDynamicModal(
+    title,
+    body
+){
+
+    const overlay =
+        document.createElement(
+            "div"
+        );
+
+
+    overlay.className =
+        "overlay open";
+
+
+    overlay.innerHTML = `
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h3>
+
+                ${
+                    escapeHTML(
+                        title
+                    )
+                }
+
+            </h3>
+
+            <button class="modal-close">
+            ×
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+
+            ${body}
+
+        </div>
+
+    </div>
+
+    `;
+
+
+    const close =
+        () => {
+
+            overlay.remove();
+
+        };
+
+
+    overlay
+    .querySelector(
+        ".modal-close"
+    )
+    .addEventListener(
+        "click",
+        close
+    );
+
+
+    overlay
+    .addEventListener(
+
+        "click",
+
+        event => {
+
+            if(
+                event.target === overlay
+            ){
+
+                close();
+
+            }
+
+        }
+
+    );
+
+
+    return overlay;
+
+}
+
+
+/* =========================================================
+   3D PROJECT TILT
+========================================================= */
+
+function initializeTiltCards(){
+
+    if(
+        window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches
+    ){
+
+        return;
+
+    }
+
+
+    document
+    .querySelectorAll(
+        ".project-card"
+    )
+    .forEach(
+
+        card => {
+
+
+            card
+            .addEventListener(
+
+                "mousemove",
+
+                event => {
+
+
+                    const rect =
+                        card
+                        .getBoundingClientRect();
+
+
+                    const px =
+                        (
+                            event.clientX
+                            -
+                            rect.left
+                        )
+                        /
+                        rect.width;
+
+
+                    const py =
+                        (
+                            event.clientY
+                            -
+                            rect.top
+                        )
+                        /
+                        rect.height;
+
+
+                    const rotateY =
+                        (
+                            px
+                            -
+                            .5
+                        )
+                        *
+                        7;
+
+
+                    const rotateX =
+                        (
+                            .5
+                            -
+                            py
+                        )
+                        *
+                        6;
+
+
+                    card.style.transform = `
+
+                    perspective(950px)
+
+                    rotateX(
+                        ${rotateX}deg
+                    )
+
+                    rotateY(
+                        ${rotateY}deg
+                    )
+
+                    translateY(-4px)
+
+                    `;
+
+                }
+
+            );
+
+
+            card
+            .addEventListener(
+
+                "mouseleave",
+
+                () => {
+
+                    card.style.transform =
+                        "";
+
+                }
+
+            );
+
+        }
+
+    );
+
+}
+
+
+/* =========================================================
+   HERO 3D PARALLAX
+========================================================= */
+
+const aiCore =
+    document
+    .getElementById(
+        "aiCore"
+    );
+
+
+document
+.addEventListener(
+
+    "mousemove",
+
+    event => {
+
+
+        const x =
+            (
+                event.clientX
+                /
+                window.innerWidth
+                -
+                .5
+            )
+            *
+            18;
+
+
+        const y =
+            (
+                event.clientY
+                /
+                window.innerHeight
+                -
+                .5
+            )
+            *
+            -15;
+
+
+        aiCore.style.transform = `
+
+        rotateY(${x}deg)
+
+        rotateX(${y}deg)
+
+        `;
+
+
+        const glow =
+            document
+            .getElementById(
+                "cursorGlow"
+            );
+
+
+        glow.style.left =
+            event.clientX
+            +
+            "px";
+
+
+        glow.style.top =
+            event.clientY
+            +
+            "px";
+
+    }
+
+);
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+function openModal(
+    id
+){
+
+    document
+    .getElementById(
+        id
+    )
+    .classList
+    .add(
+        "open"
+    );
+
+}
+
+
+function closeModal(
+    id
+){
+
+    document
+    .getElementById(
+        id
+    )
+    .classList
+    .remove(
+        "open"
+    );
+
+}
+
+
+document
+.querySelectorAll(
+    ".overlay"
+)
+.forEach(
+
+    overlay => {
+
+        overlay
+        .addEventListener(
+
+            "click",
+
+            event => {
+
+                if(
+                    event.target === overlay
+                ){
+
+                    overlay
+                    .classList
+                    .remove(
+                        "open"
+                    );
+
+                }
+
+            }
+
+        );
+
+    }
+
+);
+
+
+/* =========================================================
+   PHONE
+========================================================= */
+
+function normalizePhone(
+    value
+){
+
+    let phone =
+        String(
+            value
+            ||
+            ""
+        )
+        .replace(
+            /[^\d+]/g,
+            ""
+        );
+
+
+    if(
+        phone.length === 10
+    ){
+
+        phone =
+            "+91"
+            +
+            phone;
+
+    }
+
+
+    if(
+        phone.startsWith(
+            "91"
+        )
+    ){
+
+        phone =
+            "+"
+            +
+            phone;
+
+    }
+
+
+    return phone;
+
+}
+
+
+function formatPhone(
+    phone
+){
+
+    const digits =
+        phone
+        .replace(
+            /\D/g,
+            ""
+        );
+
+
+    if(
+        digits.length === 12
+        &&
+        digits.startsWith(
+            "91"
+        )
+    ){
+
+        return `+91 ${digits.slice(
+            2,
+            7
+        )} ${digits.slice(
+            7
+        )}`;
+
+    }
+
+
+    return phone;
+
+}
+
+
+async function copyPhoneNumber(
+    button
+){
+
+    if(
+        !portfolioSettings
+        ||
+        !portfolioSettings.phone
+    ){
+
+        return;
+
+    }
+
+
+    const phone =
+        normalizePhone(
+            portfolioSettings.phone
+        );
+
+
+    try{
+
+
+        await navigator
+        .clipboard
+        .writeText(
+            phone
+        );
+
+
+        const old =
+            button.textContent;
+
+
+        button.textContent =
+            "Copied ✓";
+
+
+        setTimeout(
+
+            () => {
+
+                button.textContent =
+                    old;
+
+            },
+
+            1600
+
+        );
+
+
+    }
+
+    catch(error){
+
+
+        const textarea =
+            document
+            .createElement(
+                "textarea"
+            );
+
+
+        textarea.value =
+            phone;
+
+
+        document.body
+        .appendChild(
+            textarea
+        );
+
+
+        textarea.select();
+
+
+        document.execCommand(
+            "copy"
+        );
+
+
+        textarea.remove();
+
+
+        button.textContent =
+            "Copied ✓";
+
+    }
+
+}
+
+
+/* =========================================================
+   AI CHAT
+========================================================= */
+
+function askPreset(
+    question
+){
+
+    document
+    .getElementById(
+        "copilotInput"
+    )
+    .value =
+        question;
+
+
+    askCopilot();
+
+}
+
+
+function formatAIAnswer(
+    value
+){
+
+    let text =
+        escapeHTML(
+            value
+            ||
+            ""
+        );
+
+
+    text =
+        text.replace(
+
+            /\*\*(.*?)\*\*/g,
+
+            "<strong>$1</strong>"
+
+        );
+
+
+    const lines =
+        text.split(
+            "\n"
+        );
+
+
+    let html = "";
+
+    let openList =
+        false;
+
+
+    lines.forEach(
+
+        line => {
+
+
+            const value =
+                line.trim();
+
+
+            if(
+                value.startsWith(
+                    "- "
+                )
+            ){
+
+
+                if(
+                    !openList
+                ){
+
+                    html +=
+                        "<ul>";
+
+                    openList =
+                        true;
+
+                }
+
+
+                html += `
+
+                <li>
+
+                    ${
+                        value.slice(
+                            2
+                        )
+                    }
+
+                </li>
+
+                `;
+
+            }
+
+            else{
+
+
+                if(
+                    openList
+                ){
+
+                    html +=
+                        "</ul>";
+
+                    openList =
+                        false;
+
+                }
+
+
+                if(
+                    value
+                ){
+
+                    html += `
+
+                    <p>
+
+                        ${value}
+
+                    </p>
+
+                    `;
+
+                }
+
+            }
+
+        }
+
+    );
+
+
+    if(
+        openList
+    ){
+
+        html +=
+            "</ul>";
+
+    }
+
+
+    return html;
+
+}
+
+
+function addUserMessage(
+    question
+){
+
+    const container =
+        document
+        .getElementById(
+            "aiConversation"
+        );
+
+
+    const node =
+        document
+        .createElement(
+            "div"
+        );
+
+
+    node.className =
+        "chat-message user";
+
+
+    node.innerHTML = `
+
+    <div class="chat-avatar">
+    YOU
+    </div>
+
+    <div class="chat-content">
+
+        ${
+            escapeHTML(
+                question
+            )
+        }
+
+    </div>
+
+    `;
+
+
+    container
+    .appendChild(
+        node
+    );
+
+
+    scrollChat();
+
+}
+
+
+function addAIMessage(
+    answer,
+    sources=[]
+){
+
+    const container =
+        document
+        .getElementById(
+            "aiConversation"
+        );
+
+
+    const node =
+        document
+        .createElement(
+            "div"
+        );
+
+
+    node.className =
+        "chat-message";
+
+
+    const unique =
+        [];
+
+
+    const seen =
+        new Set();
+
+
+    sources.forEach(
+
+        source => {
+
+            if(
+                !seen.has(
+                    source.id
+                )
+            ){
+
+                seen.add(
+                    source.id
+                );
+
+                unique.push(
+                    source
+                );
+
+            }
+
+        }
+
+    );
+
+
+    const sourceHTML =
+        unique.length
+
+        ?
+
+        `
+
+        <div class="ai-sources">
+
+            <div class="ai-source-title">
+
+            VERIFIED EVIDENCE
+
+            </div>
+
+            ${
+                unique
+                .slice(
+                    0,
+                    4
+                )
+                .map(
+
+                    source => `
+
+                    <div class="ai-source">
+
+                        <strong>
+
+                            ${
+                                escapeHTML(
+                                    source.title
+                                )
+                            }
+
+                        </strong>
+
+                        <br>
+
+                        ${
+                            escapeHTML(
+                                source.source
+                            )
+                        }
+
+                    </div>
+
+                    `
+
+                )
+                .join("")
+            }
+
+        </div>
+
+        `
+
+        :
+
+        "";
+
+
+    node.innerHTML = `
+
+    <div class="chat-avatar">
+    AI
+    </div>
+
+    <div class="chat-content">
+
+        ${
+            formatAIAnswer(
+                answer
+            )
+        }
+
+        ${sourceHTML}
+
+    </div>
+
+    `;
+
+
+    container
+    .appendChild(
+        node
+    );
+
+
+    scrollChat();
+
+}
+
+
+async function askCopilot(){
+
+    if(
+        aiIsThinking
+    ){
+
+        return;
+
+    }
+
+
+    const input =
+        document
+        .getElementById(
+            "copilotInput"
+        );
+
+
+    const question =
+        input.value.trim();
+
+
+    if(
+        !question
+    ){
+
+        return;
+
+    }
+
+
+    const thinking =
+        document
+        .getElementById(
+            "aiThinking"
+        );
+
+
+    const askButton =
+        document
+        .getElementById(
+            "askButton"
+        );
+
+
+    addUserMessage(
+        question
+    );
+
+
+    input.value =
+        "";
+
+
+    aiIsThinking =
+        true;
+
+
+    thinking.style.display =
+        "flex";
+
+
+    askButton.disabled =
+        true;
+
+
+    scrollChat();
+
+
+    try{
+
+
+        const response =
+            await fetch(
+
+                MANAS_AI_API,
+
+                {
+
+                    method:
+                        "POST",
+
+                    headers:{
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            question,
+
+                            session_id:
+                                manasAISessionId,
+
+                            top_k:
+                                7
+
+                        })
+
+                }
+
+            );
+
+
+        if(
+            !response.ok
+        ){
+
+            throw new Error(
+                "Chat request failed"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if(
+            data.session_id
+        ){
+
+            manasAISessionId =
+                data.session_id;
+
+
+            localStorage.setItem(
+
+                "manas_ai_session",
+
+                data.session_id
+
+            );
+
+        }
+
+
+        addAIMessage(
+
+            data.answer,
+
+            data.sources
+            ||
+            []
+
+        );
+
+
+    }
+
+    catch(error){
+
+
+        console.error(
+            error
+        );
+
+
+        addAIMessage(
+
+            "I could not connect to the Manas AI backend. Please try again.",
+
+            []
+
+        );
+
+    }
+
+    finally{
+
+
+        thinking.style.display =
+            "none";
+
+
+        askButton.disabled =
+            false;
+
+
+        aiIsThinking =
+            false;
+
+
+        input.focus();
+
+    }
+
+}
+
+
+function scrollChat(){
+
+    const container =
+        document
+        .getElementById(
+            "aiConversation"
+        );
+
+
+    setTimeout(
+
+        () => {
+
+            container.scrollTop =
+                container.scrollHeight;
+
+        },
+
+        40
+
+    );
+
+}
+
+
+async function resetManasAI(){
+
+    if(
+        manasAISessionId
+    ){
+
+        try{
+
+
+            await fetch(
+
+                `${API_BASE}/api/chat/reset/${manasAISessionId}`,
+
+                {
+                    method:
+                        "POST"
+                }
+
+            );
+
+
+        }
+
+        catch(error){
+
+
+            console.log(
+                error
+            );
+
+        }
+
+    }
+
+
+    manasAISessionId =
+        null;
+
+
+    localStorage.removeItem(
+        "manas_ai_session"
+    );
+
+
+    document
+    .getElementById(
+        "aiConversation"
+    )
+    .innerHTML = `
+
+    <div class="chat-message">
+
+        <div class="chat-avatar">
+        AI
+        </div>
+
+        <div class="chat-content">
+
+            <strong>
+            New conversation started.
+            </strong>
+
+            <p>
+            Ask me anything about Manas.
+            </p>
+
+        </div>
+
+    </div>
+
+    `;
+
+}
+
+
+document
+.getElementById(
+    "copilotInput"
+)
+.addEventListener(
+
+    "keydown",
+
+    event => {
+
+        if(
+            event.key === "Enter"
+        ){
+
+            event.preventDefault();
+
+            askCopilot();
+
+        }
+
+    }
+
+);
+
+
+/* =========================================================
+   JD ANALYZER
+========================================================= */
+
+async function analyzeJD(){
+
+    const input =
+        document
+        .getElementById(
+            "jdInput"
+        );
+
+
+    const description =
+        input.value.trim();
+
+
+    if(
+        description.length < 50
+    ){
+
+        alert(
+            "Please paste a complete job description."
+        );
+
+        return;
+
+    }
+
+
+    const loading =
+        document
+        .getElementById(
+            "jdLoading"
+        );
+
+
+    const result =
+        document
+        .getElementById(
+            "jdResult"
+        );
+
+
+    const button =
+        document
+        .getElementById(
+            "jdAnalyzeButton"
+        );
+
+
+    loading.style.display =
+        "block";
+
+
+    result.style.display =
+        "none";
+
+
+    button.disabled =
+        true;
+
+
+    try{
+
+
+        const response =
+            await fetch(
+
+                JD_API,
+
+                {
+
+                    method:
+                        "POST",
+
+                    headers:{
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            job_description:
+                                description
+
+                        })
+
+                }
+
+            );
+
+
+        if(
+            !response.ok
+        ){
+
+            throw new Error(
+                "JD analysis failed"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        const sources =
+            data.sources
+            ||
+            [];
+
+
+        const sourceHTML =
+            sources.length
+
+            ?
+
+            `
+
+            <div class="ai-sources">
+
+                <div class="ai-source-title">
+
+                EVIDENCE REVIEWED
+
+                </div>
+
+                ${
+                    sources
+                    .slice(
+                        0,
+                        5
+                    )
+                    .map(
+
+                        source => `
+
+                        <div class="ai-source">
+
+                            <strong>
+
+                                ${
+                                    escapeHTML(
+                                        source.title
+                                    )
+                                }
+
+                            </strong>
+
+                            <br>
+
+                            ${
+                                escapeHTML(
+                                    source.source
+                                )
+                            }
+
+                        </div>
+
+                        `
+
+                    )
+                    .join("")
+                }
+
+            </div>
+
+            `
+
+            :
+
+            "";
+
+
+        result.innerHTML =
+
+            formatAIAnswer(
+                data.analysis
+            )
+
+            +
+
+            sourceHTML;
+
+
+        result.style.display =
+            "block";
+
+
+    }
+
+    catch(error){
+
+
+        console.error(
+            error
+        );
+
+
+        result.innerHTML = `
+
+        <strong>
+        Analysis unavailable.
+        </strong>
+
+        <p>
+        Verify that the backend is running.
+        </p>
+
+        `;
+
+
+        result.style.display =
+            "block";
+
+    }
+
+    finally{
+
+
+        loading.style.display =
+            "none";
+
+
+        button.disabled =
+            false;
+
+    }
+
+}
+
+
+/* =========================================================
+   REVEAL OBSERVER
+========================================================= */
+
+const revealObserver =
+    new IntersectionObserver(
+
+        entries => {
+
+
+            entries.forEach(
+
+                entry => {
+
+
+                    if(
+                        entry.isIntersecting
+                    ){
+
+                        entry
+                        .target
+                        .classList
+                        .add(
+                            "visible"
+                        );
+
+
+                        revealObserver
+                        .unobserve(
+                            entry.target
+                        );
+
+                    }
+
+                }
+
+            );
+
+        },
+
+        {
+            threshold:.1
+        }
+
+    );
+
+
+function observeNewRevealNodes(){
+
+    document
+    .querySelectorAll(
+        ".reveal:not(.visible)"
+    )
+    .forEach(
+
+        element => {
+
+            revealObserver
+            .observe(
+                element
+            );
+
+        }
+
+    );
+
+}
+
+
+observeNewRevealNodes();
+
+
+/* =========================================================
+   PARTICLE NETWORK
+========================================================= */
+
+const canvas =
+    document
+    .getElementById(
+        "networkCanvas"
+    );
+
+
+const ctx =
+    canvas
+    .getContext(
+        "2d"
+    );
+
+
+let canvasWidth =
+    0;
+
+
+let canvasHeight =
+    0;
+
+
+let particles =
+    [];
+
+
+function resizeNetwork(){
+
+    canvasWidth =
+        canvas.width =
+            window.innerWidth;
+
+
+    canvasHeight =
+        canvas.height =
+            window.innerHeight;
+
+
+    const count =
+        Math.min(
+            70,
+            Math.max(
+                30,
+                Math.floor(
+                    canvasWidth
+                    /
+                    22
+                )
+            )
+        );
+
+
+    particles =
+        Array.from(
+
+            {
+                length:
+                    count
+            },
+
+            () => ({
+
+                x:
+                    Math.random()
+                    *
+                    canvasWidth,
+
+                y:
+                    Math.random()
+                    *
+                    canvasHeight,
+
+                vx:
+                    (
+                        Math.random()
+                        -
+                        .5
+                    )
+                    *
+                    .12,
+
+                vy:
+                    (
+                        Math.random()
+                        -
+                        .5
+                    )
+                    *
+                    .12
+
+            })
+
+        );
+
+}
+
+
+function animateNetwork(){
+
+    ctx.clearRect(
+        0,
+        0,
+        canvasWidth,
+        canvasHeight
+    );
+
+
+    particles.forEach(
+
+        particle => {
+
+
+            particle.x +=
+                particle.vx;
+
+
+            particle.y +=
+                particle.vy;
+
+
+            if(
+                particle.x < 0
+                ||
+                particle.x >
+                canvasWidth
+            ){
+
+                particle.vx *=
+                    -1;
+
+            }
+
+
+            if(
+                particle.y < 0
+                ||
+                particle.y >
+                canvasHeight
+            ){
+
+                particle.vy *=
+                    -1;
+
+            }
+
+
+            ctx.beginPath();
+
+
+            ctx.arc(
+
+                particle.x,
+                particle.y,
+                1,
+                0,
+                Math.PI
+                *
+                2
+
+            );
+
+
+            ctx.fillStyle =
+                "rgba(100,145,255,.32)";
+
+
+            ctx.fill();
+
+        }
+
+    );
+
+
+    for(
+        let i=0;
+        i<particles.length;
+        i++
+    ){
+
+        for(
+            let j=i+1;
+            j<particles.length;
+            j++
+        ){
+
+            const dx =
+                particles[i].x
+                -
+                particles[j].x;
+
+
+            const dy =
+                particles[i].y
+                -
+                particles[j].y;
+
+
+            const distance =
+                Math.hypot(
+                    dx,
+                    dy
+                );
+
+
+            if(
+                distance < 105
+            ){
+
+                ctx.beginPath();
+
+
+                ctx.moveTo(
+
+                    particles[i].x,
+
+                    particles[i].y
+
+                );
+
+
+                ctx.lineTo(
+
+                    particles[j].x,
+
+                    particles[j].y
+
+                );
+
+
+                ctx.strokeStyle = `
+
+                rgba(
+                    77,
+                    132,
+                    255,
+                    ${
+                        (
+                            1
+                            -
+                            distance
+                            /
+                            105
+                        )
+                        *
+                        .055
+                    }
+                )
+
+                `;
+
+
+                ctx.stroke();
+
+            }
+
+        }
+
+    }
+
+
+    requestAnimationFrame(
+        animateNetwork
+    );
+
+}
+
+
+window
+.addEventListener(
+
+    "resize",
+
+    resizeNetwork
+
+);
+
+
+resizeNetwork();
+
+animateNetwork();
+
+
+/* =========================================================
+   YEAR + START
+========================================================= */
+
+document
+.getElementById(
+    "year"
+)
+.textContent =
+    new Date()
+    .getFullYear();
+
+
+loadPortfolio();
+
+</script>
+
+
+</body>
+
+</html>
